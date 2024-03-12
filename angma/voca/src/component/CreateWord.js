@@ -1,17 +1,15 @@
 import { useRef } from "react";
 import useFetch from "../Hooks/useFetch"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function CreateWord() {
     const days = useFetch("http://localhost:3001/days");
+    const history = useHistory();
 
     function onSubmit(e){
         e.preventDefault();
 
-        console.log(engRef.current.value);
-        console.log(korRef.current.value);
-        console.log(dayRef.current.value);
-
-        fetch(`http://localhost:3001/words/`, {
+    fetch(`http://localhost:3001/words/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,6 +23,7 @@ export default function CreateWord() {
     }).then(res => {
       if(res.ok){
         alert('생성이 완료되었습니다.');
+        history.push(`/day/${dayRef.current.value}`)
       }
     });
     }

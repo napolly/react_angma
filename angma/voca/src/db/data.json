@@ -55,6 +55,20 @@
       "eng": "house",
       "kor": "집",
       "isDone": false
+    },
+    {
+      "id": "40fb",
+      "day": "1",
+      "eng": "book",
+      "kor": "책",
+      "isDone": false
+    },
+    {
+      "id": "d4aa",
+      "day": "2",
+      "eng": "watch",
+      "kor": "시계",
+      "isDone": false
     }
   ]
 }

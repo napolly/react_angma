@@ -954,3 +954,12 @@ url을 words 까지만 입력해주고
 POST로 전송하면 생성됨.
 
 커밋
+
+저장버튼을 눌러 저장이 되면 alert 이후 해당 페이지로 자동 이동하게 구현
+useHistory() 구현
+const history = useHistory(); 사용
+alert 이후 삽입
+history.push 를 하고
+push 에 해당 페이지 입력
+여기서는 history.push('/day/입력한날짜}') 가 되겠지
+입력한 날짜는 ${dayRef.current.value} 가 될 것이고.
