@@ -16,7 +16,9 @@ export default function Word({ word }) {
               <td>{isShow && word.kor}</td> 
               {/*  isShow : True 일때만 뜻보여줌 */}
               <td>
-                <button onClick={toggleShow}>뜻 보기</button>
+                <button onClick={toggleShow}>
+                    뜻 {isShow ? '숨기기':'보이기'}
+                    </button>
                 <button class="btn_del">삭제</button>
               </td>
             </tr>
