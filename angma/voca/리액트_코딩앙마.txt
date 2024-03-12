@@ -690,3 +690,35 @@ return (
 			  
 onChange Handler 가 없으면 read-only 다.
 즉, 고정값이면 일기전용과 같다 라는 말
+
+==============================
+데이터를 읽고,쓰고,수정하고, 삭제하는 기능
+--> json server 기능
+
+프론트엔드를 공부하다보면 제일 귀찮은게 API 만드는것. ==> 그럴때 쓸만한게 JSON-server
+공부목적, 작은프로젝트에 사용가능
+npm install -g json-server
+-g : 글로벌로 설치
+설치완료 후
+json-server --watch ./src/db/data.json --prot 3001
+
+보안때문에 실행안될때는 터미널에서
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+이후 명령어 재실행
+http://localhost:3001/days
+http://localhost:3001/words 접속 테스트해보면 나옴
+
+REST API 에 대하여
+RestAPI - uri 주소와 메서드로 CRUD 요청을 하는것.
+
+Create - POST
+Read - GET
+Update - PUT
+Delete - DELETE
+
+http://localhost:3001/words/2 --> 2번만 나옴
+이 주소로 POST를 날리면 새로운 단어가 생성됨
+간편하네
+
+http://localhost:3001/words?day=1 --> 1일차 데이터만 가져오는것도 가능
