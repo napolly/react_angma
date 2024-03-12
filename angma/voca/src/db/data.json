@@ -41,6 +41,20 @@
       "eng": "pencil",
       "kor": "연필",
       "isDone": false
+    },
+    {
+      "id": "caa0",
+      "day": "3",
+      "eng": "window",
+      "kor": "창문",
+      "isDone": false
+    },
+    {
+      "id": "88a9",
+      "day": "2",
+      "eng": "house",
+      "kor": "집",
+      "isDone": false
     }
   ]
 }
