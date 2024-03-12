@@ -1,0 +1,692 @@
+사용편의>>>>>>>>>>>>>>>>>>>>>>>>>>
+자동정렬 단축키 : sh + alt + F
+
+
+
+강의1-2>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+소개
+nodejs 설치
+visual Studio 설치
+
+강의2-3>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+1) cmd에서 프로젝트 생성
+$> npx create-react-app voca
+
+2) visual Studio에서 open folder 로 가져오기
+
+3) VS -> terminal 에서 npm start --> web page 열림
+
+4) node_modules -> 프로젝트 실행되는 dependency 모듈들이 모여있음 (package.json 에 선언) - 폴더 삭제되거나 지우더라도, npm install 하면 재생성됨
+	따라서, git 에 업로드 할때는 해당폴더 제외시킴
+
+5) public > index.html 안에 <div id="root"></div> 이 밑으로 리액트 코드가 실행되서 만들어진 DOM이 실행됨
+
+※테스트는 이 강좌에서 다루지 않을거라 삭제함(App.test.js 삭제함)
+But, 따로 확인해볼것
+
+6) 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+id 'root' 에 App / 을 rendering 시켜준다 이렇게 이해하라. --> index.html 에 있던 'root'
+
+reportWebVitals 이부분은 퍼포먼스 관련 부분이라 필요없어 삭제함
+
+이제 App.js 에서 코드를 구현하면 됨
+
+-----------------------------------------준비 끝
+
+App.js 소스 수정하면 바로 반영됨
+Hot Module Replacement (HMR)
+
+터미널에서 ctrl + C : 프로젝트 다운
+
+npm start 로 다시 띄울 수 있는데
+package.json 에 설정돼있음.
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+	
+	start : 개발자모드 등등
+	
+
+
+강의4>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+컴포넌트
+만들어서 여기저기 갖다쓰면 편함
+App.js 에서 컴포넌트 생성함
+export default App;
+
+그리고 index.js에서 갖다 씀
+import App from './App';
+
+이렇게 function App() 함수로 되어 있는 걸 함수형 컴포넌트라고 하고
+모든 컴포넌트는 A 즉, 대문자로 시작해야함.
+
+이 함수가 리턴하는것이 바로 jsx 즉, JavaScript XML.
+
+1) 
+const name = "Tom";
+  return (
+    <div className="App">
+      <h1 
+        style={{
+          color: "#f0f",
+          backgroundColor: "green",
+      }}
+      >
+        Hello, {name}. <p> {2+3} </p>
+      </h1>
+    </div>
+  );
+  
+  {} 안에 변수 사용가능. But, Boolean 이나 객체는 사용불가
+  
+  객체의 속성값은 사용가능
+  뭔말?
+  
+  function App() {
+  const name = "Tom";
+  const naver = {
+    name: "네이버",
+    url: "https://naver.com",
+  };
+  return (
+    <div className="App">
+      <h1 
+        style={{
+          color: "#f0f",
+          backgroundColor: "green",
+      }}
+      >
+        Hello, {name}. <p> {2+3} </p>
+      </h1>
+      <a href={naver.url}>{naver.name}</a>
+    </div>
+  );
+}
+
+위처럼 naver 객체를 생성하고,
+<a 태그 안에 링크의 주소와 링크의 이름을, naver객체에서 속성값을 가져와서 셋팅하면 적용됨.
+
+강의5-6>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+css작성법
+
+직접 컴포넌트 생성 연습
+
+어떻게 할거냐면
+1) component 폴더 생성, 그 안에 js파일 만들고, 함수만들고, export 하면됨
+
+2) 여러 형태 가능
+<1>
+const Hello = function(){
+    <p>Hello</p>
+}
+
+export default Hello;
+
+/**
+ * 
+ <2>가능
+const Hello = () => {
+    <p>Hello</p>
+}
+export default Hello;
+ */
+
+/**
+<3>가능
+export default function Hello(){
+    <p>Hello</p>    
+}
+ */
+
+
+
+3)
+Hello.js
+Welcome.js
+World.js
+
+만든 상태에서
+Hello.js 에서 World 컴포넌트를 사용하는데 있어서
+import World from "./World";
+
+export default function Hello() {
+    return(
+        <div>
+            <h1>Hello</h1>
+            <World />
+        </div>
+    ) 
+}
+
+<div> 태그를 넣어준 이유는, jsx에서는 하나의 태그만 가능
+그렇기 때문에 <> 빈태그를 넣어줘도 된다.
+
+지금 구조가, App 컴포넌트 안에 Hello와 Welcome 컴포넌트가 있고,
+또 Hello 컴포넌트 안에는 World 컴포넌트가 있는 상태다.
+
+똑같은 컴포넌트를 여러번 사용해도 됨
+재사용 가능
+
+
+4) css 작성법
+create-react-app 으로 프로젝트 생성시 쉽게 할 수 있는 방법 3가지
+  <1> in-line style
+  return (
+        <div>
+            <h1 style={
+                {
+                    color: '#f00',
+                    borderRight: '2px solid #000',
+                    marginBottom: '30px',
+                    opacity: 0.5
+                }
+            }>Hello</h1>
+            <World />
+            <World />
+        </div>
+    )
+	
+   <2> css 파일을 생성하여 적용법
+   문제 - css 내 속성 명이 같으면 중첩된다 주의
+   
+   <3> module 을 통한 관리
+   App.module.css 를 생성하여 css 를 정의하고
+   js 파일에서는 (여기에선 App.js) import styles from './App.module.css' 를 통해 import 한 후
+   스타일 적용하는 곳에서 클래스네임 className을 기존 "box" 에서 {styles.box} 로 변경한다
+   그럼 각각의 css가 적용되는 걸 볼 수 있다.
+   이렇게 적용하고 개발자도구로 확인하면, 클래스네임 className이 hash 값으로 클래스에 따라 특화되어 설정되어 있는 것을 확인할 수 있다.
+   css 크기가 커지면 naming 에 대한 고민이 많은데 이 방식으로 말끔하게 해결할 수 있음.
+   
+   
+강의6>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+이벤트 처리
+
+
+Hello.js
+return (
+        <div>
+            <h1>Hello</h1>
+            <button>Show name</button>
+            <button>Show age</button>
+        </div>
+    )
+	
+
+
+방법 1) 미리 함수를 하나 만들어 놓고 전달해주는 것.
+
+ function showName() {
+        console.log("Mike");
+    }
+    return (
+        <div>
+            <h1>Hello</h1>
+            <button onClick={showName}>Show name</button>
+            <button>Show age</button>
+        </div>
+    )
+
+근데 여기서, {showName} 말고  {showName()} 처럼 괄호() 를 넣어주게되면, showName이 리턴하는 값이 들어가게 됨.
+
+방법 2) 박스 안에 직접 함수를 선언(화살표 함수 등)
+function showName() {
+        console.log("Mike");
+    }
+    return (
+        <div>
+            <h1>Hello</h1>
+            <button onClick={showName}>Show name</button>
+            <button onClick={
+                () => {
+                    console.log("MeMe");
+                }
+            }>Show age</button>
+        </div>
+    )
+	
+2번째 방법의 장점은, 매개변수를 전달하기 편하다는 것.
+
+    function showName() {
+        console.log("Mike");
+    }
+    function showAge(age) {
+        console.log(age);
+    }
+    return (
+        <div>
+            <h1>Hello</h1>
+            <button onClick={showName}>Show name</button>
+            <button onClick={
+                () => {
+                    showAge(30);
+                }
+            }>Show age</button>
+        </div>
+    )
+위 코드처럼, showAge 함수를 만들고,
+버튼에서 함수명에 매개변수 전달하기 편함.
+
+아래 코드는, input box 를 통하여 입력을 받으면, onChange 가 되면 로그를 찍는것
+showInput 함수는 e 이벤트를 매개변수로 받고 e.target의 값(value)를 전달
+
+function showName() {
+        console.log("Mike");
+    }
+    function showAge(age) {
+        console.log(age);
+    }
+    function showInput(e) {
+        console.log(e.target.value);
+    }
+    return (
+        <div>
+            <h1>Hello</h1>
+            <button onClick={showName}>Show name</button>
+            <button onClick={
+                () => {
+                    showAge(30);
+                    
+                }
+            }>Show age</button>
+            <input type="text" onChange={showInput}/>
+        </div>
+    )
+
+이건 아래랑 똑같음
+
+return (
+        <div>
+            <h1>Hello</h1>
+            <button onClick={showName}>Show name</button>
+            <button onClick={
+                () => {
+                    showAge(30);
+                    
+                }
+            }>Show age</button>
+            <input type="text" onChange={(e)=>{
+                console.log(e.target.value);
+            }}/>
+        </div>
+    )
+	
+강의7>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+state
+
+state - 컴포넌트가 갖고있는 속성값
+이 속성값이 변하면 리액트는 ui를 자동으로 업데이트 해줌
+
+export default function Hello() {
+    let name = "Mike";
+
+    function changeName(){
+        name = name === "Mike" ? "Jane" : "Mike";
+        console.log(name);
+    }
+    return (
+        <div>
+            <h1>state</h1>
+            <h2>{name}</h2>
+            <button onClick={changeName}>change</button>
+        </div>
+    );
+}
+
+
+위와 같이 분명 button 클릭시 onClick 이벤트로 changeName을 호출했는데
+로그상으로는 분명 이름이 Mike, Jane 으로 변경이 되는데 DOM 업데이트가 안되는걸 발견할 수 있다.
+
+따라서 DOM 업데이트를 해주면 되니까 아래와 같이 해주면 된다.
+export default function Hello() {
+    let name = "Mike";
+
+    function changeName(){
+        name = name === "Mike" ? "Jane" : "Mike";
+        console.log(name);
+        document.getElementById("name").innerText = name;
+    }
+    return (
+        <div>
+            <h1>state</h1>
+            <h2 id="name">{name}</h2>
+            <button onClick={changeName}>change</button>
+        </div>
+    );
+}
+
+여기서 name 은 state 가 아니라 단순 변수일 뿐이다.
+그래서, name이 아무리 바뀌어도 리액트는 name이 바뀌어도 업데이트를 해주지 않는다.
+그래서 현재 수동으로 업데이트 해주고 있는 것이다. document.getElementById("name").innerText = name; 이라는 코드로 말이야.
+
+그래서 리액트의 state 업데이트 기능을 사용하기 위해 useState를 사용하게 된다.
+오케이~~~~~~~~~~~~~~~~~~~~~~~~~~
+HOOK 은 리액트 16.8 부터 사용가능.
+초기 리액트는,
+state와 lifecycle을 관리하려면 클래스형 컴포넌트를 만들어야 했음. 그리고, ui만 표현해주는걸 함수형 컴포넌트로 사용.
+But, 16.8부터는 모든 컴포넌트를 함수형으로 만들 수 있게 되었고,
+이 HOOK을 사용하여 함수형 컴포넌트에서도 state와 라이프사이클을 사용할 수 있게 되었다.
+따라서, 자주 사용하는 HOOK 사용법과, 개발자가 직접 HOOK을 만들어 사용하는 방법을 익힌다.
+
+usetState
+상태값 관리를 위해 사용.
+
+    const [name, setName] = useState();
+    //배열의 첫번째 값은 state값이고 (변수명이라고 생각)
+    //두번째는 이 state를 변경해주는 함수입니다.
+    //배열 구조분해를 한거다. 모르면 JavaScript 구조분해할당 에 대해 공부
+
+==> useState를 이용한 코드
+
+import { useState } from "react";
+
+export default function Hello() {
+    // let name = "Mike";
+    const [name, setName] = useState('Mike');
+    //배열의 첫번째 값은 state값이고 (변수명이라고 생각)
+    //두번째는 이 state를 변경해주는 함수입니다.
+    //배열 구조분해를 한거다. 모르면 JavaScript 구조분해할당 에 대해 공부
+    //setName함수에 의해 name 이 바뀌면, 리액트는 이 컴포넌트를 다시 랜더링 해줍니다.
+    //useState() 이 괄호 안에는 초기값이 들어가면 됩니다.
+    //useState('Mike')
+    function changeName(){
+        const newName = name === "Mike" ? "Jane" : "Mike";
+        // console.log(name);
+        // document.getElementById("name").innerText = name;
+        setName(newName);
+    }
+    return (
+        <div>
+            <h1>state</h1>
+            <h2 id="name">{name}</h2>
+            <button onClick={changeName}>change</button>
+        </div>
+    );
+}
+
+
+Hello.js
+import { useState } from "react";
+
+export default function Hello() {
+    // let name = "Mike";
+    const [name, setName] = useState('Mike');
+
+    function changeName(){
+        ;
+    }
+    return (
+        <div>
+            <h2 id="name">{name}</h2>
+            <button onClick={()=>{
+                setName(name === "Mike" ? "Jane" : "Mike");
+            }}>change</button>
+        </div>
+    );
+}
+
+App.js
+import './App.css';
+import Hello from './component/Hello';
+import Welcome from './component/Welcome';
+import World from './component/World';
+import styles from './App.module.css'
+
+function App() {
+  return (
+    <div className="App">
+      <Hello />
+      <Hello />
+      <Hello />      
+      
+    </div>
+  );
+}
+
+export default App;
+ 
+ 
+App.js 에서 위와 같이 컴포넌트를 3번 반복해서 사용했을 때,
+각각의 버튼은 독립적인 state를 변경시키는 것을 볼 수 있다.
+
+
+강의8>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+props
+
+function App() {
+  return (
+    <div className="App">
+      <h3>props : properties</h3>
+      <Hello age={10}/>
+      <Hello age={20}/>
+      <Hello age={30}/>
+      
+    </div>
+  );
+}
+이렇게 Hello 에 age 속성을 지정해준다.
+이게 어떻게 동작하느냐?
+기존의 Hello 컴포넌트
+export default function Hello() {
+
+여기서 
+export default function Hello(props) {
+
+이렇게 props를 전달받게 변경한다.
+
+이 값은 component 내부에선 변경할 수 없음
+변경하고 싶으면 component 내부에서 또 usestate를 사용해야함.
+
+import { useState } from "react";
+
+export default function Hello(props) {
+    console.log(props);
+    const [name, setName] = useState('Mike');
+    const [age, setAge] = useState(props.age);
+  
+    return (
+        <div>
+            <h2 id="name">{name}({age})</h2>
+            <button onClick={()=>{
+                setName(name === "Mike" ? "Jane" : "Mike");
+                setAge(age +1 );
+            }}>change</button>
+        </div>
+    );
+}
+
+지금 이 코드는 age라는 내부에서 생성한 상태값을 변경하는거고
+넘겨받은 props 를 변경하려고 하면 에러가 난다.
+
+state 와 pros 는 굉장히 많이 사용됨.
+화면에 어떤 데이터를 갱신하기 위해서는 항상 이 두가지, state와 props를 이용해 갱신하는게 좋다.
+import { useState } from "react";
+
+export default function Hello({age}) {
+    const [name, setName] = useState('Mike');
+    const msg = age > 19 ? "성인 입니다." : "미성년자 입니다.";
+      
+    return (
+        <div>
+            <h2 id="name">{name}({age}) : {msg}</h2>
+            <button onClick={()=>{
+                setName(name === "Mike" ? "Jane" : "Mike");
+            }}>change</button>
+        </div>
+    );
+}
+
+
+한 컴포넌트가 가진 state를 props로 넘길 수도 있다.
+
+
+import { useState } from "react";
+import UserName from "./UserName";
+
+export default function Hello({age}) {
+    const [name, setName] = useState('Mike');
+    const msg = age > 19 ? "성인 입니다." : "미성년자 입니다.";
+      
+    return (
+        <div>
+            <h2 id="name">{name}({age}) : {msg}</h2>
+            <UserName name={name} />
+			{/* 이 부분은 이 컴포넌트에서는 state이지만, UserName 입장에서는 props 죠 */}
+            <button onClick={()=>{
+                setName(name === "Mike" ? "Jane" : "Mike");
+            }}>change</button>
+        </div>
+    );
+}
+
+리액트는 이렇게 동작합니다.
+개발자가 해줄 것은 데이터만 알아서 적절히 변경시켜주면 된다.
+그러면 컴포넌트는 알아서 랜더링을 다시 하고
+화면의 UI정보는 갱신됩니다.
+
+강의9>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+더미 데이터 구현, map() 반복문.
+
+html 에서 <ul> 태그는 순서없는 list
+ul 태그는 <li> (리스트) 를 자식으로 가지며, 아래와 같이 사용가능
+<ul>
+  <li>항목 1</li>
+  <li>항목 2</li>
+  <li>항목 3</li>
+</ul>
+
+
+import dummy from "../db/data.json"
+
+export default function DayList() {
+    console.log(dummy);
+    return <ul className="list_day">
+        {dummy.days.map(day => (
+            <li>Day {day.day}</li>
+        ))}
+        
+    </ul>;
+}
+로그에 보면, 키가 필요하다는 경고문이 뜨는데,
+반복되는 요소에 고유한 값을 넣어줘야함.
+why?
+
+리액트에서 key는 리스트나 반복되는 요소를 생성할 때 각 요소를 식별하는 역할을 합니다. key는 React가 요소를 효율적으로 업데이트, 재사용 및 리렌더링할 수 있도록 도와줍니다.
+
+리액트에서 배열을 사용하여 리스트를 렌더링할 때 각 요소는 고유한 key prop을 가져야 합니다. 이는 React에게 각 요소의 식별을 도와주며, React는 변경된 요소를 효율적으로 감지하여 리렌더링할 수 있습니다.
+
+key가 없으면 React는 각 요소를 비교하는 데 어려움을 겪을 수 있습니다. 특히 동적인 리스트에서 아이템이 추가되거나 제거될 때 문제가 발생할 수 있습니다. key를 제공함으로써 React는 새로운 항목을 추가하거나 삭제할 때 적절한 요소를 업데이트하고 유지할 수 있습니다.
+
+따라서 key는 React에서 리스트나 반복되는 요소를 효율적으로 관리하기 위해 필요한 중요한 요소입니다.
+
+component/Day.js 에서
+
+//특정날짜를 클릭했을 때 단어들이 나오는 페이지
+import dummy from "../db/data.json";
+// import { useParams } from "react-router-dom";
+
+export default function Day() {
+    // dummy.words 사용
+//   const { day } = useParams();
+//   const wordList = dummy.words.filter(word => word.day === Number(day));
+
+  return (
+    <>
+      {/* <h2>Day {day}</h2> */}
+      <table>
+        <tbody>
+          {dummy.words.map(word => (
+            <tr>
+              <td>{word.eng}</td>
+              <td>{word.kor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
+}
+
+문제 -> 모든 데이터가 다나옴
+ex) Day1에는 1에만 해당하는 단어가 나오고 해야되는데. 다나와
+
+//특정날짜를 클릭했을 때 단어들이 나오는 페이지
+import dummy from "../db/data.json";
+// import { useParams } from "react-router-dom";
+
+export default function Day() {
+    // dummy.words 사용
+//   const { day } = useParams();
+const day=1;
+  const wordList = dummy.words.filter(word => word.day === day);
+  console.log(wordList);
+
+  return (
+    <>
+      {/* <h2>Day {day}</h2> */}
+      <table>
+        <tbody>
+          {wordList.map(word => (
+            <tr key={word.id}>
+              <td>{word.eng}</td>
+              <td>{word.kor}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
+}
+강의10>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+react-router-dom 라우터 구현
+
+npm install react-router-dom으로 설치하고
+App.js에 
+import { BrowserRouter, Route, Switch } from "react-router-dom"
+그다음, App 모든 요소를 BrowserRouter 로 감싸준다.
+
+Header 는 모든 페이지에 다 나와야하니까
+Header 다음부분을 switch 로 감싸준다.
+
+Day1, Day2, Day3 에 링크를 달건데
+html 은 a 태그로 링크를 거는데
+리액트-라우터는 link라는 놈을 사용한다.
+
+react-router-dom 에서 다이나믹한 url을 처리할 때는, 콜론 : 으로 처리하면 됨.
+
+예를들면,
+<Route path="/day">
+    <Day />
+</Route>
+에서 day/1 day/2 로 이동하려면
+<Route path="/day/:day">
+    <Day />
+</Route>
+		  
+이렇게 url에 포함된 값을 얻을 때는, react-router-dom에서 제공하는 
+useParams을 사용
+
+
+강의11>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+json-server, REST API
+뜻보기,숨기기,삭제버튼,체크박스 만들것.
+
+
+Word.js 에서
+return (
+        <tr className={word.isDone ? 'off' : ''}>
+              <td>
+                <input type="checkbox" checked={word.isDone} />
+              </td>
+              <td>{word.eng}</td>
+			  
+onChange Handler 가 없으면 read-only 다.
+즉, 고정값이면 일기전용과 같다 라는 말
