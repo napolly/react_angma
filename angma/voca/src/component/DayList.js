@@ -21,7 +21,11 @@ export default function DayList() {
 
     useEffect(() => {
         console.log("Count change");
-    });
+    }, [count]);
+    //다른 함수에 영향을 미치는 것을 방지하기 위하여, useEffect의 두번째 매개변수에 배열을 전달해서.
+    //이렇게 하면count가 변경됐을 때만 이 함수가 실행된다.
+    //의존성 배열
+    //의존성 배열의 값이 변경되는 경우에만 이 함수가 실행됨.
 
     return (
         <>
