@@ -5,7 +5,7 @@ interface IProps {
   word : IWord;
 }
 
-interface IWord{
+export interface IWord{
   id: number,
   day: string,
   eng: string,

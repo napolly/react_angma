@@ -1049,4 +1049,28 @@ if(res.ok){
           });
 이렇게 해주면 됨.
 
+프로젝트에 에러가나서, Word 임포트 하는부분을 확장자까지 명시해주는걸로 변경
+
+
+========
+다음으로 Day.js 의 확장자를 tsx 로 변경
+에러가 난다. 어디서? word.id에서
+왜? 이 word가 IWord라는걸 모르는거지.
+words의 word를 반복하고 있는데,
+이 words 가 IWord의 배열이라는 걸 명시해주도록 하자.
+how?
+이미 Word.tsx에서 만들어놓은 IWord가 있으니
+앞에 export 만 붙히면 다른파일에서도 이 interface를 사용할 수 있음.
+
+words 부분을 이렇게만 변경해주면 됨
+const words : IWord[]
+즉, word 가 IWord의 배열 타입이다 라고 명시
+
+그다음, day 에서 에러가 나는데, useParams() 에서 가져오는 객체 내부에 day가 있는지 확신할 수 없는 것.
+마우스 올려보면 빈 객체를 기대하고 있음.
+  const { day } = useParams();
+==>   const { day } = useParams<{}>(); 이거랑 같은건데
+이 꺽쇠 내부에 객체를 입력해줌
+const { day } = useParams<{day : string}>();
+이 꺽쇠는 제네릭이라고하는데, 어떤 타입을 사용하려는지 타입을 파라미터처럼 받아서 사용할 수 있음.
 

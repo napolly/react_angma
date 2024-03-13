@@ -1,13 +1,14 @@
 //특정날짜를 클릭했을 때 단어들이 나오는 페이지
 import { useParams } from "react-router-dom";
-import Word from "./Word.tsx";
-import useFetch from "../Hooks/useFetch";
+import Word, { IWord } from "./Word.tsx";
+import useFetch from "../Hooks/useFetch.js";
+import React from "react";
 
 export default function Day() {
   // dummy.words 사용
-  const { day } = useParams();
+  const { day } = useParams<{day : string}>();
 
-  const words = useFetch(`http://localhost:3001/words?day=${day}`);
+  const words : IWord[] = useFetch(`http://localhost:3001/words?day=${day}`);
 
   return (
     <>
