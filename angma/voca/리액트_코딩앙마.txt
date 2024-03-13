@@ -1113,5 +1113,10 @@ CreateWord.js 에 타입스크립트 적용
 
     설명 : dayRef.current && engRef.current && korRef.current 이 없으면 그 아래 부분은 실행되지 않음.
     아래 변수들 (day, eng, kor)은 이미 여기서 검증이 끝나기때문에 에러가 안남
+
     
-    
+======================
+useFetch.js 이런거는 jsx를 반환하는 컴포넌트가 아니기에 그냥 .ts로 변경
+에러뜨는부분은
+export default function useFetch(url) {
+-> export default function useFetch(url: string) {

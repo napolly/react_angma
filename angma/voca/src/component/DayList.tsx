@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import useFetch from "../Hooks/useFetch";
+import useFetch from "../Hooks/useFetch.ts";
 import React from "react";
 
 export interface IDay{

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import useFetch from "../Hooks/useFetch"
+import useFetch from "../Hooks/useFetch.ts"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import React from "react";
 import { IDay } from "./DayList";
