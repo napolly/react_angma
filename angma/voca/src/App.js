@@ -1,4 +1,4 @@
-import Day from "./component/Day";
+import Day from "./component/Day.tsx";
 import DayList from "./component/DayList";
 import Header from "./component/Header";
 import { BrowserRouter, Route , Switch } from 'react-router-dom';
