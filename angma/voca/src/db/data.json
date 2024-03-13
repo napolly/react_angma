@@ -84,6 +84,13 @@
       "eng": "bottle",
       "kor": "병",
       "isDone": false
+    },
+    {
+      "id": "0ac3",
+      "day": "5",
+      "eng": "phone",
+      "kor": "전화기",
+      "isDone": false
     }
   ]
 }

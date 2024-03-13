@@ -1,31 +1,37 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import useFetch from "../Hooks/useFetch"
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function CreateWord() {
     const days = useFetch("http://localhost:3001/days");
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(false);
 
-    function onSubmit(e){
+    function onSubmit(e) {
         e.preventDefault();
 
-    fetch(`http://localhost:3001/words/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        day : dayRef.current.value,
-        eng : engRef.current.value,
-        kor : korRef.current.value,
-        isDone : false,
-      }),
-    }).then(res => {
-      if(res.ok){
-        alert('생성이 완료되었습니다.');
-        history.push(`/day/${dayRef.current.value}`)
-      }
-    });
+
+        if (!isLoading) {
+            setIsLoading(true);
+            fetch(`http://localhost:3001/words/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    day: dayRef.current.value,
+                    eng: engRef.current.value,
+                    kor: korRef.current.value,
+                    isDone: false,
+                }),
+            }).then(res => {
+                if (res.ok) {
+                    alert('생성이 완료되었습니다.');
+                    history.push(`/day/${dayRef.current.value}`)
+                    setIsLoading(false);
+                }
+            });
+        }
     }
 
     const engRef = useRef(null);
@@ -52,7 +58,7 @@ export default function CreateWord() {
                     ))}
                 </select>
             </div>
-            <button>저장</button>
+            <button>{isLoading ? "Saving..." : "저장"}</button>
             {/* 버튼을 누르면 새로고침이 되는데 이는 form 태그로 감싸져있어서 그럼 */}
         </form>
     )
