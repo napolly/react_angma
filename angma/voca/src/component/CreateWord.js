@@ -58,7 +58,13 @@ export default function CreateWord() {
                     ))}
                 </select>
             </div>
-            <button>{isLoading ? "Saving..." : "저장"}</button>
+                
+            <button style={{
+                    opacity: isLoading ? 0.3 : 1,
+                }}
+                >
+                    {isLoading ? "Saving..." : "저장"}
+                    </button>
             {/* 버튼을 누르면 새로고침이 되는데 이는 form 태그로 감싸져있어서 그럼 */}
         </form>
     )

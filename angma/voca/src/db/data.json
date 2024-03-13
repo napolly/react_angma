@@ -91,6 +91,13 @@
       "eng": "phone",
       "kor": "전화기",
       "isDone": false
+    },
+    {
+      "id": "561d",
+      "day": "1",
+      "eng": "mouse",
+      "kor": "쥐",
+      "isDone": false
     }
   ]
 }
