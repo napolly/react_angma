@@ -1,5 +1,5 @@
 import Day from "./component/Day.tsx";
-import DayList from "./component/DayList";
+import DayList from "./component/DayList.tsx";
 import Header from "./component/Header";
 import { BrowserRouter, Route , Switch } from 'react-router-dom';
 import EmptyPage from './component/EmptyPage';

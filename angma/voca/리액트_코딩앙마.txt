@@ -1074,3 +1074,9 @@ const words : IWord[]
 const { day } = useParams<{day : string}>();
 이 꺽쇠는 제네릭이라고하는데, 어떤 타입을 사용하려는지 타입을 파라미터처럼 받아서 사용할 수 있음.
 
+======================
+DayList.js -> DayList.tsx 변경
+에러남
+어디서? day에서
+day를 사용하고 있는데, day객체에 대한 타입이 없는 상태.
+IWord 처럼 IDay 생성
