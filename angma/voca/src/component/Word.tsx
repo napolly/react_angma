@@ -1,6 +1,19 @@
+import React from "react";
 import { useState } from "react";
 
-export default function Word({ word: w }) {
+interface IProps {
+  word : IWord;
+}
+
+interface IWord{
+  id: number,
+  day: string,
+  eng: string,
+  kor: string,
+  isDone: boolean
+}
+
+export default function Word({ word: w }:IProps) {
   const [word, setWord] = useState(w);
   const [isShow, setIsShow] = useState(false); //초기값은 false : 그래야 단어를 외웠는지 안외웠는지
   const [isDone, setIsDone] = useState(word.isDone);
@@ -34,7 +47,10 @@ export default function Word({ word: w }) {
         method: 'DELETE'
       }).then(res => {
         if(res.ok){
-          setWord({id:0});
+          setWord({
+            ...word,
+            id:0,
+          });
         }
       });
     }

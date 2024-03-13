@@ -978,3 +978,75 @@ fetch 시작시 true로 set
 
 버튼에도 클릭 후 통신시 Saving 으로 표시되도록 변경
 <button>{isLoading ? "Saving..." : "저장"}</button>
+
+
+====숙제
+왼쪽 오른쪽 버튼을 삽입하여 day 이동기능 구현
+
+
+강의17>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+타입스크립트를 적용해보자.
+보통 타입스크립트는 초반에 적용하는게 좋음
+npm install typescript @types/node @types/react @types/react-dom @types/jest @types/react-router-dom
+
+js -> .te
+jsx -> .tsx
+
+1) interface IProps {} 선언
+2) Word 에서 전달받는 props 의 타입을 IProps 로 선언
+  export default function Word({ word: w }) {
+-> export default function Word({ word: w }: IProps) {
+
+interface IProps {
+  word : any;
+}
+위와 같이 타입을 any 로 선언하고
+
+interface IProps {
+  word : IWord;
+}
+
+interface IWord{
+  "id": number,
+  "day": string,
+  "eng": string,
+  "kor": string,
+  "isDone": boolean
+}
+
+타입스크립트가 적용되었습니다.
+도대체 뭐가 좋아졌냐????????????
+
+word. 을 하면 속성값들이 나옴
+오타방지
+그리고
+word.id. 하면 숫자타입일 때 사용할 수 있는 메서드들도 볼 수 있음
+
+그리고 타입스크립트로 변환하면서
+word의 id=0으로 셋팅하던게 있는데 여기서 에러가난다.
+왜? 다른 프로퍼티들도 있어야 하는데 무시하기 때문.
+word 는 이 5가지의 값을 모두 가지고 있어야 하거든.
+interface IProps {
+  word : IWord;
+}
+
+interface IWord{
+  id: number,
+  day: string,
+  eng: string,
+  kor: string,
+  isDone: boolean
+}
+그럼 어떻게?
+다른 속성값들을 옵셔널 optional 로 변경시켜주면된다.
+how?
+id 제외 나머지 값들에 day?: string 이렇게 옵셔널로 변경.
+하지만, 이건 좋은 방법이 아님.
+if(res.ok){
+          setWord({
+            ...word,
+            id:0,
+          });
+이렇게 해주면 됨.
+
+

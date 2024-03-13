@@ -1,6 +1,6 @@
 //특정날짜를 클릭했을 때 단어들이 나오는 페이지
 import { useParams } from "react-router-dom";
-import Word from "./Word";
+import Word from "./Word.tsx";
 import useFetch from "../Hooks/useFetch";
 
 export default function Day() {
