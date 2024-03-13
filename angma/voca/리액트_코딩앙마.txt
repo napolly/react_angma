@@ -1080,3 +1080,38 @@ DayList.js -> DayList.tsx 변경
 어디서? day에서
 day를 사용하고 있는데, day객체에 대한 타입이 없는 상태.
 IWord 처럼 IDay 생성
+
+======================
+CreateWord.js 에 타입스크립트 적용
+1) 파일확장자 변경 .tsx
+2) day 는 위와 마찬가지로, Day.tsx 에서 IDay 를 export
+3) CreateWord.tsx에서 days -> days : IDay[] 타입 지정해줌
+4) event type : form을 submit 하는 이벤트는, e: React.FormEvent로 주면됨. 외워 암기
+    function onSubmit(e : React.FormEvent) {
+5) Ref값들, dayRef.current.value 는 랜더링이 완료된 이후라도 없을 수 있지.
+    Ref 객체들의 타입을 지정
+    제네릭을 이용해서 입력
+    살펴보면, 아래에 폼에서 영어와 뜻은 input, day는 select
+    html element 타입을 넣어줌
+    const engRef = useRef<HTMLInputElement>(null);
+    const korRef = useRef<HTMLInputElement>(null);
+    const dayRef = useRef<HTMLSelectElement>(null);
+    이렇게 되면, 초기값은 null 이고 입력값은 value 라는 property로 들어온다는걸 알 수 있죠.
+    다른 값이나 메서드들도 어떤값이 있는지 알 수 있음.
+    ex)engRef.current. 하면 사용할 수 있는 값이나 메서드들이 나옴
+    const engRef = useRef<HTMLInputElement>(null); 이렇게 타입이 없으면 안나옴
+
+    아래처럼 수정
+    if (!isLoading
+            && dayRef.current && engRef.current && korRef.current
+        ) {
+            setIsLoading(true);
+
+            const day = dayRef.current.value;
+            const eng = engRef.current.value;
+            const kor = korRef.current.value;
+
+    설명 : dayRef.current && engRef.current && korRef.current 이 없으면 그 아래 부분은 실행되지 않음.
+    아래 변수들 (day, eng, kor)은 이미 여기서 검증이 끝나기때문에 에러가 안남
+    
+    

@@ -3,7 +3,7 @@ import DayList from "./component/DayList.tsx";
 import Header from "./component/Header";
 import { BrowserRouter, Route , Switch } from 'react-router-dom';
 import EmptyPage from './component/EmptyPage';
-import CreateWord from "./component/CreateWord";
+import CreateWord from "./component/CreateWord.tsx";
 import CreateDay from "./component/CreateDay";
 
 function App() {
